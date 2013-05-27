@@ -28,18 +28,9 @@ using namespace Osp::Net::Wifi;
 
 result badaNet::ConstructConnection(bool do_activate) {
 	result r = E_SUCCESS;
-	if (!pWifiMgr) {
-		pWifiMgr = new WifiManager();
-		pWifiMgr->Construct(*this);
-	}
-
-	if (pWifiMgr->IsActivated()) {
-		r = ConstructAccount();
-	}else if (do_activate) {
-		manualWiFi = true;
-		mainForm->SetStatus("Starting Wi-Fi");
-		r = pWifiMgr->Activate();
-	}
+	ConstructAccount();
+	if (start_on_activate)
+		r = StartConnection(true);
 	return r;
 }
 
@@ -48,7 +39,7 @@ result badaNet::ConstructAccount() {
 	active = false;
 	NetAccountManager accountManager;
 	accountManager.Construct();
-	NetAccountId accountId = accountManager.GetNetAccountId(NET_BEARER_WIFI);
+	NetAccountId accountId = accountManager.GetNetAccountId();
 	if (accountId == -1)
 		return E_FAILURE;
 
@@ -73,7 +64,6 @@ badaNet::badaNet() {
 	pConn = 0;
 	pDns = 0;
 	addr = 0;
-	manualWiFi = false;
 	start_on_activate = false;
 }
 
@@ -84,12 +74,6 @@ badaNet::~badaNet() {
 		delete pDns;
 	if (addr)
 		sk_addr_free(addr);
-
-	if (pWifiMgr) {
-		if (manualWiFi && pWifiMgr->IsConnected())
-			pWifiMgr->Deactivate();
-		delete pWifiMgr;
-	}
 }
 
 void badaNet::OnDnsResolutionCompletedN(IpHostEntry* ipHostEntry, result r) {
@@ -222,14 +206,6 @@ void badaNet::OnSocketReadyToSend(Osp::Net::Sockets::Socket &socket) {
 	bufsize_after = s->sending_oob + bufchain_size(&s->output_data);
 	if (bufsize_after < bufsize_before)
 		plug_sent(s->plug, bufsize_after);
-}
-
-void badaNet::OnWifiConnected(const Osp::Base::String& ssid, result r) {
-	if (E_SUCCESS == r) {
-		ConstructAccount();
-		if (start_on_activate)
-			r = StartConnection(true);
-	}
 }
 
 result badaNet::DnsRequest(String hostName, Plug p) {

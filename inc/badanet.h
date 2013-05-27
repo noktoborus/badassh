@@ -8,7 +8,6 @@
 #include <FNetSockSocket.h>
 #include <FBaseRtThreadMutex.h>
 #include <FBaseRtThreadThread.h>
-#include <FNetWifiIWifiManagerEventListener.h>
 
 struct SockAddr_tag {
 	Osp::Net::NetAddressFamily family;
@@ -51,15 +50,13 @@ class badaNet:
 	public Osp::Base::Object,
 	public Osp::Net::IDnsEventListener,
 	public Osp::Net::INetConnectionEventListener,
-	public Osp::Net::Sockets::ISocketEventListener,
-	public Osp::Net::Wifi::IWifiManagerEventListener {
+	public Osp::Net::Sockets::ISocketEventListener {
 protected:
 	Osp::Net::Dns *pDns;
 	Osp::Net::NetConnectionState state;
-	bool active, manualWiFi, start_on_activate;
+	bool active, start_on_activate;
 	Osp::Net::NetConnection *pConn;
 	Osp::Net::Sockets::Socket *pSocket;
-	Osp::Net::Wifi::WifiManager *pWifiMgr;
 	Actual_Socket sock;
 	SockAddr addr;
 	Plug plug;
@@ -76,13 +73,6 @@ protected:
 	void OnSocketConnected(Osp::Net::Sockets::Socket &socket);
 	void OnSocketReadyToReceive(Osp::Net::Sockets::Socket &socket);
 	void OnSocketReadyToSend(Osp::Net::Sockets::Socket &socket);
-	//WiFi
-	void OnWifiActivated(result r) {}
-	void OnWifiDeactivated(result r) {}
-	void OnWifiConnected(const Osp::Base::String& ssid, result r);
-	void OnWifiDisconnected(void) {}
-	void OnWifiRssiChanged(long rssi) {}
-	void OnWifiScanCompletedN(const Osp::Base::Collection::IList *pWifiBssInfoList, result r) {}
 public:
 	badaNet(void);
 	~badaNet(void);
