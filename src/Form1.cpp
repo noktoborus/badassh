@@ -56,8 +56,10 @@ bool Form1::Initialize() {
 	update = false;
 	started = false;
 	typing = false;
+	ctrled = false;
+	show_buttons = false;
 	pShadow = 0;
-
+	
 	// Construct an XML form
 	Construct(L"IDF_FORM1");
 
@@ -78,12 +80,27 @@ result Form1::OnInitializing(void) {
 	pScroll = static_cast<ScrollPanel *> (GetControl(L"IDC_SCROLLPANEL1"));
 	pScroll->AddTouchEventListener(*this);
 
+	pButtonESC = static_cast<Button *> (GetControl(L"IDC_BUTTON1", true));
+	pButtonESC->SetShowState (false);
+	pButtonESC->SetActionId (ID_BUTTON_ESC);
+	pButtonESC->AddActionEventListener (*this);
+
+	pButtonCTRL = static_cast<Button *> (GetControl(L"IDC_BUTTON2", true));
+	pButtonCTRL->SetShowState (false);
+	pButtonCTRL->SetActionId (ID_BUTTON_CTRL);
+	pButtonCTRL->AddActionEventListener (*this);
+
+	pButtonTAB = static_cast<Button *> (GetControl(L"IDC_BUTTON3", true));
+	pButtonTAB->SetShowState (false);
+	pButtonTAB->SetActionId (ID_BUTTON_TAB);
+	pButtonTAB->AddActionEventListener (*this);
+
 	pEdit = static_cast<EditArea *>(GetControl(L"IDPC_EDITAREA1", true));
 	pEdit->SetLowerCaseModeEnabled(true);
 	pEdit->AddTextEventListener(*this);
 	pEdit->AddScrollPanelEventListener(*this);
 	pEdit->AddActionEventListener(*this);
-	pEdit->SetOverlayKeypadCommandButton(COMMAND_BUTTON_POSITION_LEFT, L"Tab", ID_BUTTON_EDITFIELD_DONE);
+	pEdit->SetOverlayKeypadCommandButton(COMMAND_BUTTON_POSITION_LEFT, L"Keys", ID_BUTTON_EDITFIELD_DONE);
 	pEdit->SetOverlayKeypadCommandButton(COMMAND_BUTTON_POSITION_RIGHT, L"Hide", ID_BUTTON_EDITFIELD_CANCEL);
 	pEdit->SetText("+");
 	pEdit->SetPosition(800,-120);
@@ -141,12 +158,33 @@ result Form1::OnTerminating(void) {
 
 void Form1::OnActionPerformed(const Osp::Ui::Control& source, int actionId) {
 	switch (actionId) {
-	case ID_BUTTON_EDITFIELD_DONE: {
+	case ID_BUTTON_ESC: {
+		/* send ESC key */
+		if (!term || !ldisc) break;
+		char buf[2] = { 0x1b, 0x00 };
+		term_nopaste(term);
+		term_seen_key_event(term);
+		ldisc_send(ldisc, buf, 1, 1);
+		break;
+	}
+	case ID_BUTTON_CTRL: {
+		/* set state for Control modifier */
+		ctrled = true;
+		break;
+	}
+	case ID_BUTTON_TAB: {
+		/* send TAB key */
 		if (!term || !ldisc) break;
 		char buf[2] = { 0x09, 0x00 };
 		term_nopaste(term);
 		term_seen_key_event(term);
 		ldisc_send(ldisc, buf, 1, 1);
+		break;
+	}
+	case ID_BUTTON_EDITFIELD_DONE: {
+		/* show buttons */
+		show_buttons = !show_buttons;
+		RequestRedraw (true);
 		break;
 	}
 	case ID_BUTTON_EDITFIELD_CANCEL: {
@@ -240,6 +278,9 @@ void Form1::OnTouchReleased(const Osp::Ui::Control &source, const Osp::Graphics:
 	if (delta.x * delta.x + delta.y * delta.y < 400 && back && back->sendok(backhandle)) {
 		typing = true;
 		pEdit->ShowKeypad();
+		pButtonESC->SetShowState (show_buttons);
+		pButtonCTRL->SetShowState (show_buttons);
+		pButtonTAB->SetShowState (show_buttons);
 	}
 }
 
@@ -258,9 +299,18 @@ void Form1::OnTextValueChanged(const Osp::Ui::Control& source) {
 	pEdit->SetText("+");
 
 	if (lines > 1 && chars > 1) {
+		/* return key */
 		buf[0] = 0x0D;
 		buf[1] = 0;
 	} else if (chars > 1) {
+		if (ctrled)
+		{
+			if (w[0] > '@' && w[0] < '`')
+				w[0] ^= '@'; // src/ldisc.c:69
+			else if (w[0] > '`')
+				w[0] ^= '`';
+			ctrled = false;
+		}
 		noise_ultralight(w[0]);
 		term_nopaste(term);
 		term_seen_key_event(term);
@@ -269,6 +319,7 @@ void Form1::OnTextValueChanged(const Osp::Ui::Control& source) {
 	} else if (chars == 1) {
 		return;
 	} else {
+		/* backspace key */
 		buf[0] = 0x08;
 		buf[1] = 0;
 	}
@@ -284,7 +335,10 @@ void Form1::OnTextValueChangeCanceled(const Osp::Ui::Control& source) {
 
 result Form1::OnDraw() {
 	pEdit->SetShowState(typing);
-
+	/* buttons */
+	pButtonESC->SetShowState (typing && show_buttons);
+	pButtonCTRL->SetShowState (typing && show_buttons);
+	pButtonTAB->SetShowState (typing && show_buttons);
 	if (!pShadow) return E_FAILURE;
 	Canvas *pCanvas = GetCanvasN();
 
@@ -297,6 +351,9 @@ result Form1::OnDraw() {
 void Form1::OnOverlayControlClosed(const Osp::Ui::Control &source) {
 	scrollPt = Point(0, 0);
 	viewPort = pScroll->GetClientAreaBounds();
+	pButtonESC->SetShowState (false);
+	pButtonCTRL->SetShowState (false);
+	pButtonTAB->SetShowState (false);
 }
 
 void Form1::ScrollCursor() {
@@ -312,6 +369,9 @@ void Form1::OnOverlayControlOpened(const Osp::Ui::Control &source) {
 	typing = true;
 	pEdit->SetText("+");
 	ScrollCursor();
+	pButtonESC->SetShowState (show_buttons);
+	pButtonCTRL->SetShowState (show_buttons);
+	pButtonTAB->SetShowState (show_buttons);
 }
 
 void Form1::OnOrientationChanged(const Osp::Ui::Control &source, Osp::Ui::OrientationStatus orientationStatus) {

@@ -4,24 +4,47 @@
 -->
 <!DOCTYPE Scene SYSTEM "UIForm.dtd">
 
-<Scene Bversion="1.2.1.v20101224" Dversion="20100701">
+<Scene Bversion="2.0.5.v20120307" Dversion="20100701">
     <Form id="IDF_FORM1">
-        <property BGColor="#000000" BGColorOpacity="0" Orientation="Automatic:2Dir" softKey0NormalIcon="" softKey0PressedIcon="" softKey0Text="Connect" softKey1NormalIcon="" softKey1PressedIcon="" softKey1Text="" title="" titleAlign="ALIGN_LEFT" titleIcon=""/>
-        <layout mode="Portrait" style="FORM_STYLE_OPTIONKEY|FORM_STYLE_SOFTKEY_0"/>
-        <layout mode="Landscape" style="FORM_STYLE_OPTIONKEY|FORM_STYLE_SOFTKEY_0"/>
+        <property BGColor="#000000" BGColorOpacity="0" Orientation="Automatic" softKey0NormalIcon="" softKey0PressedIcon="" softKey0Text="Connect" softKey1NormalIcon="" softKey1PressedIcon="" softKey1Text="" title="" titleAlign="ALIGN_LEFT" titleIcon="" translucentFooter="FALSE" translucentHeader="FALSE" translucentIndicator="FALSE"/>
+        <layout mode="Portrait" style="FORM_STYLE_SOFTKEY_0|FORM_STYLE_OPTIONKEY" type="NONE"/>
+        <layout mode="Landscape" style="FORM_STYLE_SOFTKEY_0|FORM_STYLE_OPTIONKEY" type="NONE"/>
     </Form>
+    <Footer>
+        <property BGBitmapPath="" color="" colorOpacity="100" disabledButtonColor="" disabledButtonColorOpacity="100" disabledButtonTextColor="" disabledItemColor="" disabledItemColorOpacity="100" disabledItemTextColor="" footerStyle="FOOTER_STYLE_TAB" highlightedButtonColor="" highlightedButtonColorOpacity="100" highlightedButtonTextColor="" highlightedItemColor="" highlightedItemColorOpacity="100" highlightedItemTextColor="" normalButtonColor="" normalButtonColorOpacity="100" normalButtonTextColor="" normalItemColor="" normalItemColorOpacity="100" normalItemTextColor="" pressedButtonColor="" pressedButtonColorOpacity="100" pressedButtonTextColor="" pressedItemColor="" pressedItemColorOpacity="100" pressedItemTextColor="" selectedItemColor="" selectedItemColorOpacity="100" selectedItemTextColor="" showBackButton="FALSE"/>
+        <itemSet/>
+    </Footer>
+    <Header>
+        <property BGBitmapPath="" color="" colorOpacity="100" descriptionText="" descriptionTextColor="" disabledButtonColor="" disabledButtonColorOpacity="100" disabledButtonTextColor="" disabledItemColor="" disabledItemColorOpacity="100" disabledItemTextColor="" headerStyle="HEADER_STYLE_TITLE" highlightedButtonColor="" highlightedButtonColorOpacity="100" highlightedButtonTextColor="" highlightedItemColor="" highlightedItemColorOpacity="100" highlightedItemTextColor="" normalButtonColor="" normalButtonColorOpacity="100" normalButtonTextColor="" normalItemColor="" normalItemColorOpacity="100" normalItemTextColor="" pressedButtonColor="" pressedButtonColorOpacity="100" pressedButtonTextColor="" pressedItemColor="" pressedItemColorOpacity="100" pressedItemTextColor="" selectedItemColor="" selectedItemColorOpacity="100" selectedItemTextColor="" titleIconPath="" titleText="" titleTextColor=""/>
+        <itemSet/>
+    </Header>
     <ScrollPanel id="IDC_SCROLLPANEL1" parent="IDF_FORM1">
         <property BGColor="" BGColorOpacity="0" panelId="IDN_PANEL1"/>
-        <panelLayout height="800" mode="Portrait" width="480" x="0" y="0"/>
-        <panelLayout height="480" mode="Landscape" width="800" x="0" y="0"/>
-        <layout height="800" mode="Portrait" width="480" x="0" y="0"/>
-        <layout height="480" mode="Landscape" width="800" x="0" y="0"/>
+        <panelLayout height="800" mode="Portrait" width="480"/>
+        <panelLayout height="480" mode="Landscape" width="800"/>
+        <layout height="800" mode="Portrait" type="NONE" width="480" x="0" y="0"/>
+        <layout height="480" mode="Landscape" type="NONE" width="800" x="0" y="0"/>
     </ScrollPanel>
     <EditArea id="IDPC_EDITAREA1" parent="IDC_SCROLLPANEL1">
-        <property InputStyle="INPUT_STYLE_OVERLAY" LimitLength="1000" guideText="" text=""/>
+        <property InputStyle="INPUT_STYLE_OVERLAY" disabledBGBitmapPath="" disabledColor="" disabledColorOpacity="0" disabledTextColor="" guideText="" guideTextColor="" highlightedBGBitmapPath="" highlightedColor="" highlightedColorOpacity="0" highlightedTextColor="" horizontalMargin="10" keypadAction="KEYPAD_ACTION_ENTER" keypadStyle="KEYPAD_STYLE_NORMAL" limitLength="1000" linkTextColor="" lowerCaseMode="" normalBGBitmapPath="" normalColor="" normalColorOpacity="0" normalTextColor="" pressedBGBitmapPath="" pressedColor="" pressedColorOpacity="0" text="" textHorizontalAlignment="" textSize="38" verticalMargin="10" viewMode=""/>
         <layout height="120" mode="Portrait" width="160" x="160" y="680"/>
         <layout height="120" mode="Landscape" width="160" x="320" y="360"/>
     </EditArea>
+    <Button id="IDC_BUTTON1" parent="IDC_SCROLLPANEL1">
+        <property disableTextColor="" disabledBitmapPath="" disabledColor="" disabledColorOpacity="100" hAlign="ALIGN_CENTER" highlightedBGBitmapPath="" highlightedColor="" highlightedColorOpacity="100" highlightedTextColor="" normalBGBitmapPath="" normalBitmapPath="" normalColor="" normalColorOpacity="100" normalTextColor="" pressedBGBitmapPath="" pressedBitmapPath="" pressedColor="" pressedColorOpacity="100" pressedTextColor="" text="Esc" textSize="24" vAlign="ALIGN_MIDDLE"/>
+        <layout height="49" mode="Portrait" width="51" x="0" y="0"/>
+        <layout height="48" mode="Landscape" width="48" x="0" y="0"/>
+    </Button>
+    <Button id="IDC_BUTTON2" parent="IDC_SCROLLPANEL1">
+        <property disableTextColor="" disabledBitmapPath="" disabledColor="" disabledColorOpacity="100" hAlign="ALIGN_CENTER" highlightedBGBitmapPath="" highlightedColor="" highlightedColorOpacity="100" highlightedTextColor="" normalBGBitmapPath="" normalBitmapPath="" normalColor="" normalColorOpacity="100" normalTextColor="" pressedBGBitmapPath="" pressedBitmapPath="" pressedColor="" pressedColorOpacity="100" pressedTextColor="" text="Ctrl" textSize="24" vAlign="ALIGN_MIDDLE"/>
+        <layout height="49" mode="Portrait" width="71" x="50" y="1"/>
+        <layout height="48" mode="Landscape" width="71" x="47" y="0"/>
+    </Button>
+    <Button id="IDC_BUTTON3" parent="IDC_SCROLLPANEL1">
+        <property disableTextColor="" disabledBitmapPath="" disabledColor="" disabledColorOpacity="100" hAlign="ALIGN_CENTER" highlightedBGBitmapPath="" highlightedColor="" highlightedColorOpacity="100" highlightedTextColor="" normalBGBitmapPath="" normalBitmapPath="" normalColor="" normalColorOpacity="100" normalTextColor="" pressedBGBitmapPath="" pressedBitmapPath="" pressedColor="" pressedColorOpacity="100" pressedTextColor="" text="Tab" textSize="24" vAlign="ALIGN_MIDDLE"/>
+        <layout height="51" mode="Portrait" width="81" x="120" y="0"/>
+        <layout height="49" mode="Landscape" width="81" x="117" y="0"/>
+    </Button>
     <Label id="IDC_LABEL1" parent="IDF_FORM1">
         <property BGBitmapPath="" BGColor="#808080" BGColorOpacity="50" hAlign="ALIGN_CENTER" text="Waiting" textColor="#40E040" textSize="15" textStyle="LABEL_TEXT_STYLE_BOLD" vAlign="ALIGN_MIDDLE"/>
         <layout height="20" mode="Portrait" width="160" x="160" y="730"/>

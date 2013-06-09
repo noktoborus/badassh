@@ -24,11 +24,14 @@ protected:
 	Osp::Ui::Controls::EditArea *pEdit;
 	Osp::Ui::Controls::Label *pLabel;
 	Osp::Ui::Controls::OptionMenu *pOptions;
+	Osp::Ui::Controls::Button *pButtonESC;
+	Osp::Ui::Controls::Button *pButtonCTRL;
+	Osp::Ui::Controls::Button *pButtonTAB;
 	Osp::Graphics::Canvas *pShadow;
 	Osp::Base::Runtime::Timer *pTimer;
 	Osp::Graphics::Point touchPt, scrollPt, dragStart;
 	Osp::Graphics::Rectangle viewPort;
-	bool update, started, typing;
+	bool update, started, typing, ctrled, show_buttons;
 	int style;
 	static const int ID_BUTTON_EDITFIELD_DONE = 501;
 	static const int ID_BUTTON_EDITFIELD_CANCEL = 502;
@@ -37,6 +40,9 @@ protected:
 	static const int ID_OPTIONKEY = 100;
 	static const int ID_OPTIONMENU_OPTIONS = 101;
 	static const int ID_OPTIONMENU_DISCONNECT = 102;
+	static const int ID_BUTTON_ESC = 105;
+	static const int ID_BUTTON_CTRL = 106;
+	static const int ID_BUTTON_TAB = 107;
 public:
 	void SetTimer(long ticks);
 	void Redraw();
