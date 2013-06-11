@@ -336,6 +336,12 @@ void Form1::OnTextValueChangeCanceled(const Osp::Ui::Control& source) {
 result Form1::OnDraw() {
 	pEdit->SetShowState(typing);
 	/* buttons */
+	if (show_buttons)
+	{
+		pButtonESC->SetPosition (0, -120);
+		pButtonCTRL->SetPosition (48, -120);
+		pButtonTAB->SetPosition (118, -120);
+	}
 	pButtonESC->SetShowState (typing && show_buttons);
 	pButtonCTRL->SetShowState (typing && show_buttons);
 	pButtonTAB->SetShowState (typing && show_buttons);
