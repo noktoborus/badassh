@@ -32,18 +32,18 @@
     </EditArea>
     <Button id="IDC_BUTTON1" parent="IDC_SCROLLPANEL1">
         <property disableTextColor="" disabledBitmapPath="" disabledColor="" disabledColorOpacity="100" hAlign="ALIGN_CENTER" highlightedBGBitmapPath="" highlightedColor="" highlightedColorOpacity="100" highlightedTextColor="" normalBGBitmapPath="" normalBitmapPath="" normalColor="" normalColorOpacity="100" normalTextColor="" pressedBGBitmapPath="" pressedBitmapPath="" pressedColor="" pressedColorOpacity="100" pressedTextColor="" text="Esc" textSize="24" vAlign="ALIGN_MIDDLE"/>
-        <layout height="49" mode="Portrait" width="51" x="0" y="0"/>
+        <layout height="48" mode="Portrait" width="48" x="0" y="0"/>
         <layout height="48" mode="Landscape" width="48" x="0" y="0"/>
     </Button>
     <Button id="IDC_BUTTON2" parent="IDC_SCROLLPANEL1">
         <property disableTextColor="" disabledBitmapPath="" disabledColor="" disabledColorOpacity="100" hAlign="ALIGN_CENTER" highlightedBGBitmapPath="" highlightedColor="" highlightedColorOpacity="100" highlightedTextColor="" normalBGBitmapPath="" normalBitmapPath="" normalColor="" normalColorOpacity="100" normalTextColor="" pressedBGBitmapPath="" pressedBitmapPath="" pressedColor="" pressedColorOpacity="100" pressedTextColor="" text="Ctrl" textSize="24" vAlign="ALIGN_MIDDLE"/>
-        <layout height="49" mode="Portrait" width="71" x="50" y="1"/>
-        <layout height="48" mode="Landscape" width="71" x="47" y="0"/>
+        <layout height="48" mode="Portrait" width="70" x="48" y="0"/>
+        <layout height="48" mode="Landscape" width="70" x="48" y="0"/>
     </Button>
     <Button id="IDC_BUTTON3" parent="IDC_SCROLLPANEL1">
         <property disableTextColor="" disabledBitmapPath="" disabledColor="" disabledColorOpacity="100" hAlign="ALIGN_CENTER" highlightedBGBitmapPath="" highlightedColor="" highlightedColorOpacity="100" highlightedTextColor="" normalBGBitmapPath="" normalBitmapPath="" normalColor="" normalColorOpacity="100" normalTextColor="" pressedBGBitmapPath="" pressedBitmapPath="" pressedColor="" pressedColorOpacity="100" pressedTextColor="" text="Tab" textSize="24" vAlign="ALIGN_MIDDLE"/>
-        <layout height="51" mode="Portrait" width="81" x="120" y="0"/>
-        <layout height="49" mode="Landscape" width="81" x="117" y="0"/>
+        <layout height="48" mode="Portrait" width="80" x="118" y="0"/>
+        <layout height="48" mode="Landscape" width="80" x="118" y="0"/>
     </Button>
     <Label id="IDC_LABEL1" parent="IDF_FORM1">
         <property BGBitmapPath="" BGColor="#808080" BGColorOpacity="50" hAlign="ALIGN_CENTER" text="Waiting" textColor="#40E040" textSize="15" textStyle="LABEL_TEXT_STYLE_BOLD" vAlign="ALIGN_MIDDLE"/>
